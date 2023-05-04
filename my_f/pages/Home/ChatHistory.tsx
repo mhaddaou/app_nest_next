@@ -1,0 +1,181 @@
+
+import { useState ,useEffect  } from "react";
+import { FiSend } from 'react-icons/fi';
+import Avatar from "./Avatar";
+import axios from "axios";
+import { io } from "socket.io-client";
+// import ContactSearch from "./ContactSearch";
+const socket = io("http://localhost:3080");
+export default function ChatHistory({ chatHistory, id } : any) {
+  
+    
+  // socket.on("connect", () => {
+  //   console.log("Connected to server!");
+  // });
+  
+  // socket.on("disconnect", () => {
+  //   console.log("Disconnected from server!");
+  // });
+  
+  // Example of sending a message to the server
+  // const message = {
+  //   sender: { id: 1, name: "John" },
+  //   receiver: { id: 2, name: "Jane" },
+  //   content: "Hello Jane!"
+  // };
+  
+  
+  
+  const [messages, setMessages] = useState(chatHistory);
+  // useEffect(() => {
+  //   async function getData() {
+  //     const response = await fetchData(props.url);
+  //     setMessages(response);
+  //   }
+  //   getData();
+  // }, []);
+
+  const [newMessage, setNewMessage] = useState("");
+
+  
+  const [inputValue, setInputValue] = useState("");
+
+  const handleInputChange = (event : any) => {
+    console.log("handel input change");
+    setInputValue(event.target.value);
+  };
+
+  const handleSubmit = (event : any) => {
+    event.preventDefault();
+    if (inputValue.trim() !== "") {
+
+      setInputValue("");
+    }
+  };
+  const mes = {
+    sender: {id: 1, name: "john"},
+    receiver:{id: 2, name: "jane"},
+    content: inputValue
+  };
+  const click = ()=>{
+    console.log("this is click");
+    console.log("this is click");
+    socket.on("connect", () => {
+      console.log("Connected to server!");
+    });
+      
+    socket.emit("sendMessage",mes)
+  }
+
+  return (
+    <div className="flex flex-col h-full overflow-y-auto relative scrollbar scrollbar-thumb-green-400 scrollbar-w-1 scrollbar-track-slate-100 scrollbar- ">
+      <Avatar id={id} check={chatHistory.length == 0 ? "false" : "true"}/>
+      {chatHistory.map((message : any) => (
+       
+        <div key={message.id} className={`mb-4 flex justify-${message.id %2 == 0  ? "end" : "start"}`}> 
+        <div className={`${
+              message.id % 2 == 0  ? "bg-blue-500 text-white" : "bg-blue-100"
+            } py-2 px-4 rounded-lg`}>
+          {message.body}</div></div>
+         
+      ))}
+      {messages.map((message : any) => (<div key={message.id} className={`mb-4 flex justify-${message.id %2 == 0  ? "end" : "start"}`}> 
+        <div className={`${
+              message.id % 2 == 0  ? "bg-blue-500 text-white" : "bg-blue-100"
+            } py-2 px-4 rounded-lg`}>
+          {message.body}</div></div>
+         
+      ))}
+       <div className={`mt-auto sticky bottom-0 ${chatHistory.length == 0 ? "hidden" : "no"} `}>
+        <form onSubmit={handleSubmit}>
+        <div className="flex items-center ">
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
+          placeholder="Type a message..."
+          className="flex-grow p-2 rounded-lg mr-2 bg-bginp w-2 sm:w-full h-full"
+          />
+          <button type="submit" onClick={click}><FiSend className=" text-white w-5 h-5 mr-2 " /></button>
+       
+      </div>
+    </form>
+      </div>
+      {/* <Link href="/Read">Read input</Link> */}
+    </div>
+    
+  );
+};
+
+
+
+
+
+
+
+
+
+
+// export default function ChatHistory({ chatHistory } : any) {
+//   const [messages, setMessages] = useState([]);
+//   const [newMessage, setNewMessage] = useState("");
+//   const [inputValue, setInputValue] = useState("");
+
+//   const handleInputChange = (event : any) => {
+//     setInputValue(event.target.value);
+//   };
+
+//   const handleSubmit = (event : any) => {
+//     event.preventDefault();
+//     if (inputValue.trim() !== "") {
+//       setInputValue("");
+//     }
+//   };
+
+//   const click = () => {
+//     if (inputValue != "") {
+//       setMessages([
+//         ...messages, 
+//         {
+//           id: messages.length + 1,
+//           name: "med",
+//           email: "lkdjf",
+//           body: inputValue,
+//         }
+//       ]);
+//     }
+//   }
+ 
+
+//   return (
+//     <div className="flex flex-col h-full overflow-y-auto relative scrollbar scrollbar-thumb-green-400 scrollbar-w-1 scrollbar-track-slate-100 scrollbar- ">
+//       <Avatar contactId={chatHistory[0]?.contactId} check={chatHistory.length == 0 ? "false" : "true"} />
+//       {chatHistory.map((message : any) => (
+//         <div key={message.id} className={`mb-4 flex justify-${message.id %2 == 0  ? "end" : "start"}`}> 
+//           <div className={`${
+//             message.id % 2 == 0  ? "bg-blue-500 text-white" : "bg-blue-100"
+//           } py-2 px-4 rounded-lg`}>
+//             {message.body}
+//             {message.id}
+//           </div>
+//         </div>
+//       ))}
+//       <div className={`mt-auto sticky bottom-0 ${chatHistory.length == 0 ? "hidden" : "no"} `}>
+//         <form onSubmit={handleSubmit}>
+//           <div className="flex items-center ">
+//             <input
+//               type="text"
+//               value={inputValue}
+//               onChange={handleInputChange}
+//               placeholder="Type a message..."
+//               className="flex-grow p-2 rounded-lg mr-2 bg-bginp w-2 sm:w-full h-full"
+//             />
+//             <button type="submit" onClick={click}>
+//               <FiSend className=" text-white w-5 h-5 mr-2 " />
+//             </button>
+//           </div>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
