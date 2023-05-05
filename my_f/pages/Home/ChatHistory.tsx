@@ -7,23 +7,28 @@ import { io } from "socket.io-client";
 // import ContactSearch from "./ContactSearch";
 const socket = io("http://localhost:3080");
 export default function ChatHistory({ chatHistory, id } : any) {
+  const myMap = new Map();
+  myMap.set('key1', 'value1');
+  myMap.set('key2', 'value2');
+  
+  console.log(myMap.get('key1'));
   
     
-  // socket.on("connect", () => {
-  //   console.log("Connected to server!");
-  // });
+ 
   
-  // socket.on("disconnect", () => {
-  //   console.log("Disconnected from server!");
-  // });
-  
-  // Example of sending a message to the server
-  // const message = {
-  //   sender: { id: 1, name: "John" },
-  //   receiver: { id: 2, name: "Jane" },
-  //   content: "Hello Jane!"
-  // };
-  
+
+  const SetToMessages = (payload : any) =>{
+    setMessages([...messages, {"postId": 4,
+    "id": 16,
+    "name": "perferendis temporibus delectus optio ea eum ratione dolorum",
+    "email": "Christine@ayana.info",
+    "body": payload}]);
+  } 
+  socket.on('receivedMessage', (payload: any) => {
+    console.log(`Received message: ${payload}`);
+    SetToMessages(payload);
+    // setMessages([...messages, payload]);
+  });
   
   
   const [messages, setMessages] = useState(chatHistory);
