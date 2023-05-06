@@ -18,15 +18,15 @@ export default function Tome() {
   
     
   return (
-    <div className="bg-saliha">
+    <div className="bg-black">
       <div className="flex flex-row h-screen gap-1">
-        <div className="w-1/4 bg-sky-900 p-4">
+        <div className="w-1/4  p-4 bg-gray-300">
           <ContactList onContactClick={handleContactClick} />
         </div>
-        <div className="w-1/2 bg-rtn p-4 h-full">
+        <div className="w-1/2 bg-gray-400 p-4 h-full">
           <ChatHistory chatHistory={chatHistory} id = {id} />
         </div>
-        <div className="w-1/4 bg-sky-900 p-4">info Field</div>
+        <div className="w-1/4 bg-gray-300 p-4">info Field</div>
       </div>
     </div>
   );

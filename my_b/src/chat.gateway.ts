@@ -1,15 +1,32 @@
-import { WebSocketGateway, WebSocketServer, OnGatewayConnection } from '@nestjs/websockets';
-import { Server } from 'socket.io';
+import {
+  
+  SubscribeMessage,
+  WebSocketGateway,
+  WebSocketServer,
+} from '@nestjs/websockets';
+import { Server, Socket } from 'socket.io';
 
-@WebSocketGateway()
-export class AppGateway implements OnGatewayConnection {
+@WebSocketGateway(4040,{ cors: { origin: '*' } })
+export class ChatGateway
+  
+{
+  @WebSocketServer() server: Server;
 
-  @WebSocketServer()
-  server: Server;
-
-  handleConnection(client: any, ...args: any[]) {
-    console.log('Client connected');
-    client.emit('connected', 'You are connected');
+  handleConnection(client: Socket, ...args: any[]) {
+    
+    console.log(` ${client.id} is connected`);
   }
+
+  handleDisconnect(client: Socket) {
+    
+    console.log(` ${client.id} is disconnected`);
+  }
+
+  @SubscribeMessage('sendMessage')
+  handleSendMessage(client: any, payload: any) {
+    console.log(client.id);
+    console.log(payload);
+    this.server.emit('receivedMessage', payload.content); 
 }
 
+}

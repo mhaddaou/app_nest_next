@@ -1,5 +1,7 @@
 import Link from 'next/link';
-
+import ContactSearch from './ContactSearch';
+import { useState } from 'react';
+import axios from 'axios';
 
 export default function ContactList({  onContactClick }) {
     const contacts = [
@@ -15,18 +17,21 @@ export default function ContactList({  onContactClick }) {
     return (
     // 
     <div>
-        <h2 className="text-lg font-medium mb-4">Contacts</h2>
+        <h2 className="text-lg font-medium m-6  underline decoration-sky-500">Search For a Contacts</h2>
+
+      <ContactSearch />
+        <h2 className="text-lg font-medium m-6 underline decoration-sky-500">Contacts</h2>
   
   
       <ul>
       {contacts.map((contact) =>(
-            <li className="flex items-center py-2">
+            <li className="flex items-center   m-2 p-2 bg-gray-200 rounded-full">
               <Link href={contact.img}>
-              <img className="w-8 h-8 rounded-full mr-3" src={contact.img} alt="" />
+              <img className="w-10 h-10 rounded-full mr-3" src={contact.img} alt="" />
               </Link>
               <button key={contact.id} onClick={()=>handleClick(contact.id)}>
               <div className="flex-1">
-              <h3 className="text-gray-900 font-medium">{contact.name}</h3>
+              <h3 className="text-gray-900 font-medium hover:text-lg hover:text-rose-950">{contact.name}</h3>
               {/* <p className="text-gray-600 text-sm">{contact.lastMessage}</p> */}
             </div>
               </button>
@@ -35,6 +40,9 @@ export default function ContactList({  onContactClick }) {
   
        
       </ul>
+     
     </div>
     );
   }
+
+

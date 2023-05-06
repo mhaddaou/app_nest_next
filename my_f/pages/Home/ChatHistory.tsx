@@ -5,7 +5,7 @@ import Avatar from "./Avatar";
 import axios from "axios";
 import { io } from "socket.io-client";
 // import ContactSearch from "./ContactSearch";
-const socket = io("http://localhost:3080");
+const socket = io("http://localhost:4040");
 export default function ChatHistory({ chatHistory, id } : any) {
   const myMap = new Map();
   myMap.set('key1', 'value1');
