@@ -12,6 +12,9 @@ export default function ChatHistory({ chatHistory, id } : any) {
   myMap.set('key2', 'value2');
   
   console.log(myMap.get('key1'));
+
+
+ 
   
     
  
@@ -106,7 +109,7 @@ export default function ChatHistory({ chatHistory, id } : any) {
       </div>
     </form>
       </div>
-      {/* <Link href="/Read">Read input</Link> */}
+      
     </div>
     
   );

@@ -1,4 +1,4 @@
-// import { UserEntity } from 'src/user/user.entity';
+import { UserEntity } from 'src/user/user.entity';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
 export const configORM: PostgresConnectionOptions = {
@@ -14,7 +14,7 @@ export const configORM: PostgresConnectionOptions = {
 
   password: "said123",
 
-  entities: [],
+  entities: [UserEntity],
 
   synchronize: true,
 };

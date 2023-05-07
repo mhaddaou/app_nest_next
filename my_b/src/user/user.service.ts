@@ -11,13 +11,12 @@ constructor(@InjectRepository(UserEntity) private readonly userRepo: Repository<
 
     async creatUser(userDto:UserDto){
         const user = await this.userRepo.create(userDto);
-
         return await this.userRepo.save(user);
     }
 
     async updateUser(){}
 
-    async findUser(){
-        // return await this.userRepo.findOne()
-    } 
+    async findUser(username:string){
+        return await this.userRepo.findOne({where:{username:username}});
+    }
 }
