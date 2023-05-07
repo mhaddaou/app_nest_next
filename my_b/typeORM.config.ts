@@ -4,7 +4,7 @@ import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConne
 export const configORM: PostgresConnectionOptions = {
   type: "postgres",
 
-  database: "testdb",
+  database: "med",
 
   host: "localhost",
 
@@ -12,7 +12,7 @@ export const configORM: PostgresConnectionOptions = {
 
   username: "postgres",
 
-  password: "said123",
+  password: "med123",
 
   entities: [UserEntity],
 

@@ -14,9 +14,9 @@ services:
         - 5432:5432
 
       environment:
-        - POSTGRES_DB=testdb
+        - POSTGRES_DB=med
         - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=said123
+        - POSTGRES_PASSWORD=med123
 
     adminer:
       image: adminer
